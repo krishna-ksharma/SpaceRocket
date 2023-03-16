@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SpaceRocket</string>
+    <string name="rocket_list">Rockets</string>
+    <string name="rocket_details">Detail</string>
+    <string name="rocket_name">Name - %1$s</string>
+    <string name="rocket_engine_count">Engine count - %1$s</string>
+    <string name="rocket_country">Country - %1$s</string>
+
+    <string name="rocket_country_detail_cost_per_launch">Cost per launch - %1$s</string>
+    <string name="rocket_country_detail_success_rate_percentage">Success rate percentage - %1$s</string>
+    <string name="rocket_country_detail_wikipedia">Wikipedia - </string>
+    <string name="rocket_country_detail_description">Description - %1$s</string>
+    <string name="rocket_country_detail_active">Active - %1$s</string>
+    <string name="rocket_country_detail_height">Height - %1$s</string>
+    <string name="rocket_country_detail_diameter">Diameter - %1$s</string>
+</resources>
