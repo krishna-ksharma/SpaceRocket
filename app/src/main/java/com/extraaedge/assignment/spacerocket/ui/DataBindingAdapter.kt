@@ -46,7 +46,7 @@ fun formatHeight(textView: TextView, height: String) {
     textView.text = textView.context.getString(R.string.rocket_country_detail_height, height)
 }
 
-@BindingAdapter("height")
+@BindingAdapter("diameter")
 fun formatDiameter(textView: TextView, height: String) {
     textView.text = textView.context.getString(R.string.rocket_country_detail_diameter, height)
 }

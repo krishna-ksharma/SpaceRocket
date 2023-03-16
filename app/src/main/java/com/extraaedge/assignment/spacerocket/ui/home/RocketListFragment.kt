@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.R
+import com.extraaedge.assignment.spacerocket.data.ApiResult
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,11 +24,6 @@ class RocketListFragment : Fragment() {
     ): View? {
         binding = FragmentRocketListBinding.inflate(layoutInflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.listRockets()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,8 +45,14 @@ class RocketListFragment : Fragment() {
     }
 
     private fun observeRockets() {
-        viewModel.state.observe(viewLifecycleOwner) { rockets ->
-            (binding.rocketRecyclerView.adapter as RocketListAdapter).setData(rockets)
+        viewModel.rockets.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ApiResult.Success -> {
+                    val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
+                    adapter.setData(result.data)
+                }
+                is ApiResult.Error -> binding.errorMessage.text = result.message
+            }
         }
     }
 }

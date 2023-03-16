@@ -7,4 +7,5 @@
     <dimen name="rocket_image_height">100dp</dimen>
     <dimen name="rocket_image_list_height">200dp</dimen>
     <dimen name="rocket_image_card_radius">8dp</dimen>
+    <dimen name="rocket_list_card_radius">4dp</dimen>
 </resources>

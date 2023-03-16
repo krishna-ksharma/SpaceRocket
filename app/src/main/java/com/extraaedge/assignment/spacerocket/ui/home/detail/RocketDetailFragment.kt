@@ -1,7 +1,6 @@
 package com.extraaedge.assignment.spacerocket.ui.home.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class RocketDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
-        viewModel.selectedRocketItem.observe(viewLifecycleOwner) { rocket ->
+        viewModel.selectedRocket.observe(viewLifecycleOwner) { rocket ->
             (activity as AppCompatActivity).supportActionBar?.title = rocket.name
             binding.rocket = rocket
             (binding.rocketImagesRecyclerView.adapter as RocketImagesAdapter).setData(rocket.flickr_images)
