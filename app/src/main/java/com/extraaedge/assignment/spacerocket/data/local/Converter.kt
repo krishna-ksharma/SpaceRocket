@@ -10,18 +10,6 @@ class Converter {
     private val gson = Gson()
 
     @TypeConverter
-    fun toEntityToDiameter(entity: Diameter): String {
-        val type = object : TypeToken<Diameter>() {}.type
-        return gson.toJson(entity, type)
-    }
-
-    @TypeConverter
-    fun fromStringToDiameter(string: String): Diameter {
-        val type = object : TypeToken<Diameter>() {}.type
-        return gson.fromJson<Diameter>(string, type)
-    }
-
-    @TypeConverter
     fun toEntityToHeight(entity: Height): String {
         val type = object : TypeToken<Height>() {}.type
         return gson.toJson(entity, type)
@@ -43,18 +31,6 @@ class Converter {
     fun fromStringToEngines(string: String): Engines {
         val type = object : TypeToken<Engines>() {}.type
         return gson.fromJson<Engines>(string, type)
-    }
-
-    @TypeConverter
-    fun toEntityToThrustVacuum(entity: ThrustVacuum): String {
-        val type = object : TypeToken<ThrustVacuum>() {}.type
-        return gson.toJson(entity, type)
-    }
-
-    @TypeConverter
-    fun fromStringToThrustVacuum(string: String): ThrustVacuum {
-        val type = object : TypeToken<ThrustVacuum>() {}.type
-        return gson.fromJson<ThrustVacuum>(string, type)
     }
 
     @TypeConverter

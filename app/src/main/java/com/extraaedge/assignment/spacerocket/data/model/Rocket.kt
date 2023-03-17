@@ -13,7 +13,7 @@ data class Rocket(
     @ColumnInfo(name = "cost_per_launch") val cost_per_launch: Int,
     @ColumnInfo(name = "country") val country: String,
     @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "diameter") val diameter: Diameter,
+    @ColumnInfo(name = "diameter") val diameter: Height,
     @ColumnInfo(name = "engines") val engines: Engines,
     @ColumnInfo(name = "first_flight") val first_flight: String,
     @ColumnInfo(name = "first_stage") val first_stage: FirstStage,

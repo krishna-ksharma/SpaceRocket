@@ -7,6 +7,6 @@ data class FirstStage(
     @ColumnInfo(name = "engines") val engines: Int,
     @ColumnInfo(name = "fuel_amount_tons") val fuel_amount_tons: Double,
     @ColumnInfo(name = "reusable") val reusable: Boolean,
-    @ColumnInfo(name = "thrust_sea_level") val thrust_sea_level: ThrustSeaLevel,
-    @ColumnInfo(name = "thrust_vacuum") val thrust_vacuum: ThrustVacuum
+    @ColumnInfo(name = "thrust_sea_level") val thrust_sea_level: Thrust,
+    @ColumnInfo(name = "thrust_vacuum") val thrust_vacuum: Thrust
 )
