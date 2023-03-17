@@ -13,7 +13,7 @@ https://api.spacexdata.com/v4/rockets
 https://api.spacexdata.com/v4/rockets/:id
 
 ## Tech Stack
-- Android Architecture components like: ViewModel, LiveData, RoomDB etc.
+- Android Architecture components like: ViewModel, LiveData, RoomDB, Navigation Component etc.
 - Followed MVVM Android Architecture 
 - Data cached offline using RoomDb and handled using Repository pattern
 - Usages Hilt-Android as a dependency injection
