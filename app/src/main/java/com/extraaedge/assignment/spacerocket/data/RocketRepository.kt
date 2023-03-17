@@ -1,8 +1,8 @@
 package com.extraaedge.assignment.spacerocket.data
 
-import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
-import com.extraaedge.assignment.spacerocket.data.model.Rocket
 import com.extraaedge.assignment.spacerocket.data.local.RocketDao
+import com.extraaedge.assignment.spacerocket.data.model.Rocket
+import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -17,8 +17,8 @@ class RocketRepository @Inject constructor(
                 val response = spaceXApi.listRockets()
                 if (response.isSuccessful) {
                     val data = response.body()
-                    data?.forEach {
-                        rocketDao.insert(it)
+                    data?.forEach { rocket ->
+                        rocketDao.insert(rocket)
                     }
                 }
                 RocketResult.Success(rocketDao.getAllRockets())
@@ -30,10 +30,4 @@ class RocketRepository @Inject constructor(
             }
         }
     }
-
-    suspend fun getAllRockets() = rocketDao.getAllRockets()
-
-    suspend fun insertRocket(rocket: Rocket) = rocketDao.insert(rocket)
-
-    suspend fun deleteAllRockets() = rocketDao.deleteAllRockets()
 }

@@ -52,14 +52,18 @@ class RocketListFragment : Fragment() {
 
     private fun observeRockets() {
         viewModel.rockets.observe(viewLifecycleOwner) { result ->
-            binding.swipeRefreshLayout.isRefreshing = false
             when (result) {
+                is RocketResult.InProgress -> {
+                    binding.swipeRefreshLayout.isRefreshing = true
+                }
                 is RocketResult.Success -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     binding.rocketRecyclerView.isVisible = true
                     val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
                     adapter.setData(result.data)
                 }
                 is RocketResult.Error -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     binding.rocketRecyclerView.isVisible = false
                     binding.errorMessage.isVisible = true
                     binding.errorMessage.text = result.message
