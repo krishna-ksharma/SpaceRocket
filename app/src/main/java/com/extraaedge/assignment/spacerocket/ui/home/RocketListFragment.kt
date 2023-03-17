@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RocketListFragment : Fragment() {
-    lateinit var binding: FragmentRocketListBinding
+    private lateinit var binding: FragmentRocketListBinding
     private val viewModel: SpaceRocketViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +29,10 @@ class RocketListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.errorMessage.isVisible = false
+            viewModel.listRockets()
+        }
         setupAdapter()
         observeRockets()
     }
@@ -46,12 +51,18 @@ class RocketListFragment : Fragment() {
 
     private fun observeRockets() {
         viewModel.rockets.observe(viewLifecycleOwner) { result ->
+            binding.swipeRefreshLayout.isRefreshing = false
             when (result) {
                 is ApiResult.Success -> {
+                    binding.rocketRecyclerView.isVisible = true
                     val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
                     adapter.setData(result.data)
                 }
-                is ApiResult.Error -> binding.errorMessage.text = result.message
+                is ApiResult.Error -> {
+                    binding.rocketRecyclerView.isVisible = false
+                    binding.errorMessage.isVisible = true
+                    binding.errorMessage.text = result.message
+                }
             }
         }
     }

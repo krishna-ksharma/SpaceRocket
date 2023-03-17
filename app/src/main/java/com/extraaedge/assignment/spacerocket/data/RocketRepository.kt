@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class RocketRepository @Inject constructor(val spaceXApi: SpaceApi) {
+class RocketRepository @Inject constructor(private val spaceXApi: SpaceApi) {
     suspend fun listRockets(): ApiResult<List<Rocket>> {
         return withContext(Dispatchers.IO) {
             try {

@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.ui.home
+package com.extraaedge.assignment.spacerocket.ui
 
 import android.widget.ImageView
 import android.widget.TextView

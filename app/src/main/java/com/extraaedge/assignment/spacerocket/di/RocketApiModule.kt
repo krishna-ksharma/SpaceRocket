@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SpaceRocketAppModule {
+class RocketApiModule {
     @Singleton
     @Provides
     fun provideContext(application: Application): Context = application.applicationContext
