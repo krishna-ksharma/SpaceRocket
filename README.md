@@ -12,7 +12,7 @@ https://api.spacexdata.com/v4/rockets
 2. Api for rocket detail:
 https://api.spacexdata.com/v4/rockets/:id
 
-# To build this application have gone through following 
+## Tech Stack
 - Android Architecture components like: ViewModel, LiveData, RoomDB etc.
 - Followed MVVM Android Architecture 
 - Data cached offline using RoomDb and handled using Repository pattern
