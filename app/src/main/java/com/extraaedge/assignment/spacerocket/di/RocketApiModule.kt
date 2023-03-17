@@ -2,8 +2,8 @@ package com.extraaedge.assignment.spacerocket.di
 
 import android.app.Application
 import android.content.Context
-import com.extraaedge.assignment.spacerocket.api.ApiConstants
-import com.extraaedge.assignment.spacerocket.api.SpaceApi
+import com.extraaedge.assignment.spacerocket.data.remote.ApiConstants
+import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

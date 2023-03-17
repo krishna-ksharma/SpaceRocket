@@ -1,6 +1,8 @@
 package com.extraaedge.assignment.spacerocket.data.model
 
+import androidx.room.ColumnInfo
+
 data class LandingLegs(
-    val material: String,
-    val number: Int
+    @ColumnInfo(name = "material") val material: String,
+    @ColumnInfo(name = "number") val number: Int
 )

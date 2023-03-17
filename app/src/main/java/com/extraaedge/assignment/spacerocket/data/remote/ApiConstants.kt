@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.api
+package com.extraaedge.assignment.spacerocket.data.remote
 
 object ApiConstants {
     const val BASE_URL = "https://api.spacexdata.com/v4/"

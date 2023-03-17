@@ -1,6 +1,8 @@
 package com.extraaedge.assignment.spacerocket.data.model
 
+import androidx.room.ColumnInfo
+
 data class Mass(
-    val kg: Int,
-    val lb: Int
+    @ColumnInfo(name = "kg") val kg: Int,
+    @ColumnInfo(name = "lb") val lb: Int
 )

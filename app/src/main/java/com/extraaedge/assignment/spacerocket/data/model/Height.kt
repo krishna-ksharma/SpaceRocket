@@ -1,8 +1,10 @@
 package com.extraaedge.assignment.spacerocket.data.model
 
+import androidx.room.ColumnInfo
+
 data class Height(
-    val feet: Double,
-    val meters: Double
+    @ColumnInfo(name = "feet") val feet: Double,
+    @ColumnInfo(name = "meters") val meters: Double
 ) {
     fun feetInches(): String {
         val measurement = feet

@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.api
+package com.extraaedge.assignment.spacerocket.data.remote
 import com.extraaedge.assignment.spacerocket.data.model.Rocket
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.ui.home
+package com.extraaedge.assignment.spacerocket.ui.home.list
 
 import android.content.Context
 import android.view.LayoutInflater

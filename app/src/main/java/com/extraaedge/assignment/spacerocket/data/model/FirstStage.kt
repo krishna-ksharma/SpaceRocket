@@ -1,10 +1,12 @@
 package com.extraaedge.assignment.spacerocket.data.model
 
+import androidx.room.ColumnInfo
+
 data class FirstStage(
-    val burn_time_sec: Int,
-    val engines: Int,
-    val fuel_amount_tons: Double,
-    val reusable: Boolean,
-    val thrust_sea_level: ThrustSeaLevel,
-    val thrust_vacuum: ThrustVacuum
+    @ColumnInfo(name = "burn_time_sec") val burn_time_sec: Int,
+    @ColumnInfo(name = "engines") val engines: Int,
+    @ColumnInfo(name = "fuel_amount_tons") val fuel_amount_tons: Double,
+    @ColumnInfo(name = "reusable") val reusable: Boolean,
+    @ColumnInfo(name = "thrust_sea_level") val thrust_sea_level: ThrustSeaLevel,
+    @ColumnInfo(name = "thrust_vacuum") val thrust_vacuum: ThrustVacuum
 )

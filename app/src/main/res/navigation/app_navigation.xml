@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/rocketListFragment"
-        android:name="com.extraaedge.assignment.spacerocket.ui.home.RocketListFragment"
+        android:name="com.extraaedge.assignment.spacerocket.ui.home.list.RocketListFragment"
         android:label="@string/rocket_list"
         tools:layout="@layout/fragment_rocket_list">
         <action

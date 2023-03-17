@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.ui.home
+package com.extraaedge.assignment.spacerocket.ui.home.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.R
-import com.extraaedge.assignment.spacerocket.data.ApiResult
+import com.extraaedge.assignment.spacerocket.data.RocketResult
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketListBinding
+import com.extraaedge.assignment.spacerocket.ui.home.viewmodel.SpaceRocketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,12 +54,12 @@ class RocketListFragment : Fragment() {
         viewModel.rockets.observe(viewLifecycleOwner) { result ->
             binding.swipeRefreshLayout.isRefreshing = false
             when (result) {
-                is ApiResult.Success -> {
+                is RocketResult.Success -> {
                     binding.rocketRecyclerView.isVisible = true
                     val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
                     adapter.setData(result.data)
                 }
-                is ApiResult.Error -> {
+                is RocketResult.Error -> {
                     binding.rocketRecyclerView.isVisible = false
                     binding.errorMessage.isVisible = true
                     binding.errorMessage.text = result.message
