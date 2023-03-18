@@ -82,18 +82,6 @@ class Converter {
     }
 
     @TypeConverter
-    fun toEntityToSecondStage(entity: SecondStage): String {
-        val type = object : TypeToken<SecondStage>() {}.type
-        return gson.toJson(entity, type)
-    }
-
-    @TypeConverter
-    fun fromStringToSecondStage(string: String): SecondStage {
-        val type = object : TypeToken<SecondStage>() {}.type
-        return gson.fromJson<SecondStage>(string, type)
-    }
-
-    @TypeConverter
     fun toEntityToPayloads(entity: Payloads): String {
         val type = object : TypeToken<Payloads>() {}.type
         return gson.toJson(entity, type)

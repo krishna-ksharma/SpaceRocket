@@ -23,7 +23,7 @@ data class Rocket(
     @ColumnInfo(name = "mass") val mass: Mass,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "payload_weights") val payload_weights: List<PayloadWeight>,
-    @ColumnInfo(name = "second_stage") val second_stage: SecondStage,
+    @ColumnInfo(name = "second_stage") val second_stage: FirstStage,
     @ColumnInfo(name = "stages") val stages: Int,
     @ColumnInfo(name = "success_rate_pct") val success_rate_pct: Int,
     @ColumnInfo(name = "type") val type: String,
