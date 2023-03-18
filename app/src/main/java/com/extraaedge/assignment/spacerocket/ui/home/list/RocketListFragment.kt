@@ -32,7 +32,7 @@ class RocketListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.errorMessage.isVisible = false
-            viewModel.listRockets()
+            viewModel.listRockets(true)
         }
         setupAdapter()
         observeRockets()

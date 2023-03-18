@@ -22,13 +22,13 @@ class SpaceRocketViewModel @Inject constructor(private val repository: RocketRep
         get() = _selectedRocket
 
     init {
-        listRockets()
+        listRockets(false)
     }
 
-    fun listRockets() {
+    fun listRockets(hardRefresh : Boolean) {
         _rockets.value = RocketResult.InProgress()
         viewModelScope.launch {
-            _rockets.value = repository.listRockets()
+            _rockets.value = repository.listRockets(hardRefresh)
         }
     }
 

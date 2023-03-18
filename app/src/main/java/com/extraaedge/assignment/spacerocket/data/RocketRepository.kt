@@ -11,22 +11,27 @@ class RocketRepository @Inject constructor(
     private val spaceXApi: SpaceApi, private
     val rocketDao: RocketDao
 ) {
-    suspend fun listRockets(): RocketResult<List<Rocket>> {
+    suspend fun listRockets(hardRefresh: Boolean): RocketResult<List<Rocket>> {
         return withContext(Dispatchers.IO) {
-            try {
-                val response = spaceXApi.listRockets()
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    data?.forEach { rocket ->
-                        rocketDao.insert(rocket)
+            val dbResults = rocketDao.getAllRockets()
+            if (!hardRefresh && dbResults.isNotEmpty()) {
+                RocketResult.Success(dbResults)
+            } else {
+                try {
+                    val response = spaceXApi.listRockets()
+                    if (response.isSuccessful) {
+                        val data = response.body()
+                        data?.forEach { rocket ->
+                            rocketDao.insert(rocket)
+                        }
                     }
+                    RocketResult.Success(rocketDao.getAllRockets())
+                } catch (e: Exception) {
+                    val localRockets = rocketDao.getAllRockets();
+                    if (localRockets.isEmpty()) RocketResult.Error(e.message) else RocketResult.Success(
+                        rocketDao.getAllRockets()
+                    )
                 }
-                RocketResult.Success(rocketDao.getAllRockets())
-            } catch (e: Exception) {
-                val localRockets = rocketDao.getAllRockets();
-                if (localRockets.isEmpty()) RocketResult.Error(e.message) else RocketResult.Success(
-                    rocketDao.getAllRockets()
-                )
             }
         }
     }
