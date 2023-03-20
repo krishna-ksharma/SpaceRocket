@@ -4,7 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface SpaceApi {
+interface RocketApi {
     @GET(ApiConstants.API_ENDPOINT)
     suspend fun listRockets(): Response<List<Rocket>>
 
