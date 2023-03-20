@@ -2,13 +2,13 @@ package com.extraaedge.assignment.spacerocket.data
 
 import com.extraaedge.assignment.spacerocket.data.local.RocketDao
 import com.extraaedge.assignment.spacerocket.data.model.Rocket
-import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
+import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RocketRepository @Inject constructor(
-    private val spaceXApi: SpaceApi, private
+    private val spaceXApi: RocketApi, private
     val rocketDao: RocketDao
 ) {
     suspend fun listRockets(hardRefresh: Boolean): RocketResult<List<Rocket>> {
