@@ -23,12 +23,10 @@ class RocketDaoTest {
     @Inject
     @Named("fakeDb")
     lateinit var db: RocketDatabase
-    lateinit var dao: RocketDao
 
     @Before
     fun setup() {
         hiltRule.inject()
-        dao = db.rocketDAo()
     }
 
     @Test
