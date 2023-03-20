@@ -24,11 +24,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            resValue "string", "clear_text_config", "false"
+            resValue "string", "cleartextTrafficPermitted", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            resValue "string", "clear_text_config", "true"
+            resValue "string", "cleartextTrafficPermitted", "true"
         }
     }
     compileOptions {

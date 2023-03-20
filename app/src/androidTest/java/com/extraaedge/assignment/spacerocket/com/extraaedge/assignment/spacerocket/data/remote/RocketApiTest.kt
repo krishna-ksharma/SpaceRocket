@@ -42,16 +42,6 @@ class RocketApiTest {
         Assert.assertEquals(1, response.body()?.size)
     }
 
-    private fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
-        val inputStream = javaClass.classLoader?.getResourceAsStream(fileName)
-        inputStream?.source()?.buffer()?.let { source ->
-            enqueue(
-                MockResponse().setResponseCode(code)
-                    .setBody(source.readString(StandardCharsets.UTF_8))
-            )
-        }
-    }
-
     @After
     fun tearDown() {
         MockServer.server.shutdown()
