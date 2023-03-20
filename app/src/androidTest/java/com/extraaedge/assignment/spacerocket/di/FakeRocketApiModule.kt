@@ -1,39 +1,24 @@
 package com.extraaedge.assignment.spacerocket.di
 
-import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
+import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.MockServer
+import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class FakeRocketApiModule {
     @Provides
+    @Named("FakeRocketApi")
     @Singleton
-    fun provideTestApi(builder: Retrofit.Builder, okHttpClient: OkHttpClient): SpaceApi {
-        return builder.client(okHttpClient).build().create(SpaceApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideTestOkHttpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideTestRetrofit(): Retrofit.Builder {
-        return Retrofit.Builder().baseUrl("http://localhost/")
-            .addConverterFactory(GsonConverterFactory.create())
+    fun provideTestApi(): RocketApi {
+        return Retrofit.Builder().baseUrl(MockServer.server.url("/"))
+            .addConverterFactory(GsonConverterFactory.create()).build().create(RocketApi::class.java)
     }
 }

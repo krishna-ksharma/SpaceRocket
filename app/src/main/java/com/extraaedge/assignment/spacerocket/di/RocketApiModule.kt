@@ -3,7 +3,7 @@ package com.extraaedge.assignment.spacerocket.di
 import android.app.Application
 import android.content.Context
 import com.extraaedge.assignment.spacerocket.data.remote.ApiConstants
-import com.extraaedge.assignment.spacerocket.data.remote.SpaceApi
+import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +23,8 @@ class RocketApiModule {
 
     @Provides
     @Singleton
-    fun provideApi(builder: Retrofit.Builder, okHttpClient: OkHttpClient): SpaceApi {
-        return builder.client(okHttpClient).build().create(SpaceApi::class.java)
+    fun provideApi(builder: Retrofit.Builder, okHttpClient: OkHttpClient): RocketApi {
+        return builder.client(okHttpClient).build().create(RocketApi::class.java)
     }
 
     @Provides
