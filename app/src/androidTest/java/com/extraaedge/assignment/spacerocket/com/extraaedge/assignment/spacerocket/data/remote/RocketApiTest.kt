@@ -5,13 +5,9 @@ import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import okio.buffer
-import okio.source
 import org.junit.*
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -36,10 +32,12 @@ class RocketApiTest {
 
     @Test
     fun listRocketApiTest() = runTest {
-        MockServer.server.enqueueResponse("rockets_response.json", 200)
-        val response = rocketApi.listRockets()
-        MockServer.server.takeRequest()
-        Assert.assertEquals(1, response.body()?.size)
+        MockServer.server.enqueueResponse("rockets_response.json")
+        launch {
+            val response = rocketApi.listRockets()
+            MockServer.server.takeRequest()
+            Assert.assertEquals(1, response.body()?.size)
+        }
     }
 
     @After
