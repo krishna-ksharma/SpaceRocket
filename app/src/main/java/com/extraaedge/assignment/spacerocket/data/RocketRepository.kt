@@ -24,15 +24,21 @@ class RocketRepository @Inject constructor(
                         data?.forEach { rocket ->
                             rocketDao.insert(rocket)
                         }
+                        RocketResult.Success(rocketDao.getAllRockets())
+                    } else {
+                        handleError(response.message())
                     }
-                    RocketResult.Success(rocketDao.getAllRockets())
                 } catch (e: Exception) {
-                    val localRockets = rocketDao.getAllRockets();
-                    if (localRockets.isEmpty()) RocketResult.Error(e.message) else RocketResult.Success(
-                        rocketDao.getAllRockets()
-                    )
+                    handleError(e.message)
                 }
             }
         }
+    }
+
+    private fun handleError(message: String?): RocketResult<List<Rocket>> {
+        val localRockets = rocketDao.getAllRockets();
+        return if (localRockets.isEmpty()) RocketResult.Error(message) else RocketResult.Success(
+            rocketDao.getAllRockets()
+        )
     }
 }

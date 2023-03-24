@@ -4,6 +4,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.buffer
 import okio.source
+import java.net.HttpURLConnection
 import java.nio.charset.StandardCharsets
 
 class MockServer {
@@ -12,12 +13,16 @@ class MockServer {
     }
 }
 
-fun MockWebServer.enqueueResponse(fileName: String, responseCode: Int) {
+fun MockWebServer.enqueueResponse(fileName: String) {
     val inputStream = javaClass.classLoader?.getResourceAsStream(fileName)
     inputStream?.source()?.buffer()?.let { source ->
         enqueue(
-            MockResponse().setResponseCode(responseCode)
+            MockResponse().setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(source.readString(StandardCharsets.UTF_8))
         )
     }
+}
+
+fun MockWebServer.enqueueFailureResponse(responseCode: Int) {
+    enqueue(MockResponse().setResponseCode(responseCode))
 }

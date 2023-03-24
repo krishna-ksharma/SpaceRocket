@@ -32,7 +32,7 @@ class RocketApiTest {
 
     @Test
     fun listRocketApiTest() = runTest {
-        MockServer.server.enqueueResponse("rockets_response.json", 200)
+        MockServer.server.enqueueResponse("rockets_response.json")
         launch {
             val response = rocketApi.listRockets()
             MockServer.server.takeRequest()
