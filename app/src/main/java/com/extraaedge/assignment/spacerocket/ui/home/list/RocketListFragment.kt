@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.R
 import com.extraaedge.assignment.spacerocket.data.RocketResult
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketListBinding
-import com.extraaedge.assignment.spacerocket.ui.home.viewmodel.SpaceRocketViewModel
+import com.extraaedge.assignment.spacerocket.viewmodel.SpaceRocketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

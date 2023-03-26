@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote
+package com.extraaedge.assignment.spacerocket.data.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.extraaedge.assignment.spacerocket.data.remote.RocketApi

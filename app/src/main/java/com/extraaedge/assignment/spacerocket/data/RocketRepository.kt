@@ -14,7 +14,7 @@ class RocketRepository @Inject constructor(
     suspend fun listRockets(hardRefresh: Boolean): RocketResult<List<Rocket>> {
         return withContext(Dispatchers.IO) {
             val dbResults = rocketDao.getAllRockets()
-            if (!hardRefresh && dbResults.isNotEmpty()) {
+            if (!hardRefresh) {
                 RocketResult.Success(dbResults)
             } else {
                 try {

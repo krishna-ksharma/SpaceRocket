@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.ui.home.viewmodel
+package com.extraaedge.assignment.spacerocket.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
