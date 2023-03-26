@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.model
+package com.extraaedge.assignment.spacerocket.data.model
 
 import com.extraaedge.assignment.spacerocket.data.model.*
 

@@ -1,6 +1,6 @@
 package com.extraaedge.assignment.spacerocket.di
 
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.MockServer
+import com.extraaedge.assignment.spacerocket.data.remote.MockServer
 import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import dagger.Module
 import dagger.Provides

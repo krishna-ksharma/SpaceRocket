@@ -1,10 +1,10 @@
-package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data
+package com.extraaedge.assignment.spacerocket.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.model.FakeRocket
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.MockServer
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.enqueueFailureResponse
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.enqueueResponse
+import com.extraaedge.assignment.spacerocket.data.model.FakeRocket
+import com.extraaedge.assignment.spacerocket.data.remote.MockServer
+import com.extraaedge.assignment.spacerocket.data.remote.enqueueFailureResponse
+import com.extraaedge.assignment.spacerocket.data.remote.enqueueResponse
 import com.extraaedge.assignment.spacerocket.data.RocketRepository
 import com.extraaedge.assignment.spacerocket.data.RocketResult
 import com.extraaedge.assignment.spacerocket.data.local.RocketDatabase

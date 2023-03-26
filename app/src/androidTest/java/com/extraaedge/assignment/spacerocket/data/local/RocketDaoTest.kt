@@ -1,7 +1,7 @@
-package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.local
+package com.extraaedge.assignment.spacerocket.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.model.FakeRocket
+import com.extraaedge.assignment.spacerocket.data.model.FakeRocket
 import com.extraaedge.assignment.spacerocket.data.local.RocketDatabase
 import com.extraaedge.assignment.spacerocket.data.model.*
 import dagger.hilt.android.testing.HiltAndroidRule

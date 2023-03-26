@@ -1,4 +1,4 @@
-package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote
+package com.extraaedge.assignment.spacerocket.data.remote
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
