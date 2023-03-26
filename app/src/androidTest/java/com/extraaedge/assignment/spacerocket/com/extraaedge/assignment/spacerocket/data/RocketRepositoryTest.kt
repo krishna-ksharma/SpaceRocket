@@ -1,6 +1,11 @@
 package com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.model.FakeRocket
+import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.MockServer
+import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.enqueueFailureResponse
+import com.extraaedge.assignment.spacerocket.com.extraaedge.assignment.spacerocket.data.remote.enqueueResponse
+import com.extraaedge.assignment.spacerocket.data.RocketRepository
 import com.extraaedge.assignment.spacerocket.data.RocketResult
 import com.extraaedge.assignment.spacerocket.data.local.RocketDatabase
 import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
@@ -8,6 +13,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.*
+import java.net.HttpURLConnection
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -28,23 +34,25 @@ class RocketRepositoryTest {
     @Named("fakeDb")
     lateinit var db: RocketDatabase
 
-    private lateinit var repository: FakeRocketRepository
+    private lateinit var repository: RocketRepository
 
     @Before
     fun setup() {
         hiltRule.inject()
-        repository = FakeRocketRepository(rocketApi, db.rocketDAo())
+        repository = RocketRepository(rocketApi, db.rocketDAo())
     }
 
     @After
     fun tearDown() {
         db.close()
+        MockServer.server.shutdown()
     }
 
     @Test
     fun listRocket_from_remote() {
+        MockServer.server.enqueueResponse("rockets_response.json")
         runBlocking {
-            val result = repository.listRocket_from_remote()
+            val result = repository.listRockets(true)
             Assert.assertEquals(true, result is RocketResult.Success)
             Assert.assertEquals(1, (result as RocketResult.Success).data.size)
         }
@@ -52,17 +60,18 @@ class RocketRepositoryTest {
 
     @Test
     fun listRocket_failed_from_remote() {
+        MockServer.server.enqueueFailureResponse(HttpURLConnection.HTTP_INTERNAL_ERROR)
         runBlocking {
-            val result = repository.listRocket_failed_from_remote()
+            val result = repository.listRockets(true)
             Assert.assertEquals(true, result is RocketResult.Error)
-           // Assert.assertEquals("Server Error", (result as RocketResult.Error).message)
         }
     }
 
     @Test
     fun listRocket_from_local() {
         runBlocking {
-            val result = repository.listRocket_from_local()
+            db.rocketDAo().insert(FakeRocket.fakeData())
+            val result = repository.listRockets(false)
             Assert.assertEquals(true, result is RocketResult.Success)
             Assert.assertEquals(1, (result as RocketResult.Success).data.size)
         }
@@ -71,7 +80,7 @@ class RocketRepositoryTest {
     @Test
     fun listEmptyRocket_from_local() {
         runBlocking {
-            val result = repository.listEmptyRocket_from_local()
+            val result = repository.listRockets(false)
             Assert.assertEquals(true, result is RocketResult.Success)
             Assert.assertEquals(0, (result as RocketResult.Success).data.size)
         }
