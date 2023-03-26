@@ -77,4 +77,5 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:2.44"
     kaptTest "com.google.dagger:hilt-android-compiler:2.44"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.44"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }

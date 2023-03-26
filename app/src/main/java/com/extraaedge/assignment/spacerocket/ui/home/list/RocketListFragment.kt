@@ -17,14 +17,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RocketListFragment : Fragment() {
-    private lateinit var binding: FragmentRocketListBinding
+    private var _binding: FragmentRocketListBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: SpaceRocketViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRocketListBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRocketListBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -36,6 +37,11 @@ class RocketListFragment : Fragment() {
         }
         setupAdapter()
         observeRockets()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupAdapter() {
