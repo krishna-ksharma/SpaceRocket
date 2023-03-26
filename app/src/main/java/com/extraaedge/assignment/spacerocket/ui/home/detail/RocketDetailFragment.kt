@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketDetailBinding
-import com.extraaedge.assignment.spacerocket.ui.home.viewmodel.SpaceRocketViewModel
+import com.extraaedge.assignment.spacerocket.viewmodel.SpaceRocketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
