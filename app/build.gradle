@@ -38,6 +38,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
+
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
 }
 
 dependencies {
@@ -78,4 +86,6 @@ dependencies {
     kaptTest "com.google.dagger:hilt-android-compiler:2.44"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.44"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.4'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 }
