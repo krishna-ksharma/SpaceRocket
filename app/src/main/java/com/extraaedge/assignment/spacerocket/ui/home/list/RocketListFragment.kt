@@ -57,6 +57,7 @@ class RocketListFragment : Fragment() {
     }
 
     private fun observeRockets() {
+        viewModel.listRockets(false)
         viewModel.rockets.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is RocketResult.InProgress -> {
