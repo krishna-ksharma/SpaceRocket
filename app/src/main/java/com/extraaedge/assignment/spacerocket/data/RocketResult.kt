@@ -1,7 +1,9 @@
 package com.extraaedge.assignment.spacerocket.data
 
-sealed class RocketResult<T : Any> {
-    class InProgress<T : Any> : RocketResult<T>()
-    class Success<T : Any>(val data: T) : RocketResult<T>()
-    class Error<T : Any>(val message: String?) : RocketResult<T>()
+import com.extraaedge.assignment.spacerocket.data.model.Rocket
+
+sealed interface RocketResult {
+    object Loading : RocketResult
+    class Success(val data: List<Rocket>) : RocketResult
+    class Error(val message: String?) : RocketResult
 }

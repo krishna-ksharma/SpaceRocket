@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketDetailBinding
 import com.extraaedge.assignment.spacerocket.viewmodel.SpaceRocketViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -35,10 +38,12 @@ class RocketDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
-        viewModel.selectedRocket.observe(viewLifecycleOwner) { rocket ->
-            (activity as AppCompatActivity).supportActionBar?.title = rocket.name
-            binding.rocket = rocket
-            (binding.rocketImagesRecyclerView.adapter as RocketImagesAdapter).setData(rocket.flickr_images)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selectedRocket.collect { rocket ->
+                (activity as AppCompatActivity).supportActionBar?.title = rocket.name
+                binding.rocket = rocket
+                (binding.rocketImagesRecyclerView.adapter as RocketImagesAdapter).setData(rocket.flickr_images)
+            }
         }
     }
 

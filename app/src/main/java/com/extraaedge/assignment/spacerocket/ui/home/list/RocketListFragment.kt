@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.extraaedge.assignment.spacerocket.R
@@ -14,6 +15,7 @@ import com.extraaedge.assignment.spacerocket.data.RocketResult
 import com.extraaedge.assignment.spacerocket.databinding.FragmentRocketListBinding
 import com.extraaedge.assignment.spacerocket.viewmodel.SpaceRocketViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RocketListFragment : Fragment() {
@@ -57,23 +59,24 @@ class RocketListFragment : Fragment() {
     }
 
     private fun observeRockets() {
-        viewModel.listRockets(false)
-        viewModel.rockets.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is RocketResult.InProgress -> {
-                    binding.swipeRefreshLayout.isRefreshing = true
-                }
-                is RocketResult.Success -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    binding.rocketRecyclerView.isVisible = true
-                    val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
-                    adapter.setData(result.data)
-                }
-                is RocketResult.Error -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    binding.rocketRecyclerView.isVisible = false
-                    binding.errorMessage.isVisible = true
-                    binding.errorMessage.text = result.message
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.rockets.collect { result ->
+                when (result) {
+                    is RocketResult.Loading -> {
+                        binding.swipeRefreshLayout.isRefreshing = true
+                    }
+                    is RocketResult.Success -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        binding.rocketRecyclerView.isVisible = true
+                        val adapter = binding.rocketRecyclerView.adapter as RocketListAdapter
+                        adapter.setData(result.data)
+                    }
+                    is RocketResult.Error -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        binding.rocketRecyclerView.isVisible = false
+                        binding.errorMessage.isVisible = true
+                        binding.errorMessage.text = result.message
+                    }
                 }
             }
         }

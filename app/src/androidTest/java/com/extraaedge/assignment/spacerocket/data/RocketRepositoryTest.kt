@@ -11,6 +11,7 @@ import com.extraaedge.assignment.spacerocket.data.local.RocketDatabase
 import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.*
 import java.net.HttpURLConnection
@@ -52,9 +53,10 @@ class RocketRepositoryTest {
     fun listRocket_from_remote() {
         MockServer.server.enqueueResponse("rockets_response.json")
         runBlocking {
-            val result = repository.listRockets(true)
-            Assert.assertEquals(true, result is RocketResult.Success)
-            Assert.assertEquals(1, (result as RocketResult.Success).data.size)
+            repository.listRockets(true).collect { result ->
+                Assert.assertEquals(true, result is RocketResult.Success)
+                Assert.assertEquals(1, (result as RocketResult.Success).data.size)
+            }
         }
     }
 
@@ -62,8 +64,9 @@ class RocketRepositoryTest {
     fun listRocket_failed_from_remote() {
         MockServer.server.enqueueFailureResponse(HttpURLConnection.HTTP_INTERNAL_ERROR)
         runBlocking {
-            val result = repository.listRockets(true)
-            Assert.assertEquals(true, result is RocketResult.Error)
+            repository.listRockets(true).collect{
+                Assert.assertEquals(true, it is RocketResult.Error)
+            }
         }
     }
 
@@ -71,18 +74,20 @@ class RocketRepositoryTest {
     fun listRocket_from_local() {
         runBlocking {
             db.rocketDAo().insert(FakeRocket.fakeData())
-            val result = repository.listRockets(false)
-            Assert.assertEquals(true, result is RocketResult.Success)
-            Assert.assertEquals(1, (result as RocketResult.Success).data.size)
+            repository.listRockets(false).collect { result ->
+                Assert.assertEquals(true, result is RocketResult.Success)
+                Assert.assertEquals(1, (result as RocketResult.Success).data.size)
+            }
         }
     }
 
     @Test
     fun listEmptyRocket_from_local() {
         runBlocking {
-            val result = repository.listRockets(false)
-            Assert.assertEquals(true, result is RocketResult.Success)
-            Assert.assertEquals(0, (result as RocketResult.Success).data.size)
+            repository.listRockets(false).collect { result ->
+                Assert.assertEquals(true, result is RocketResult.Success)
+                Assert.assertEquals(0, (result as RocketResult.Success).data.size)
+            }
         }
     }
 }

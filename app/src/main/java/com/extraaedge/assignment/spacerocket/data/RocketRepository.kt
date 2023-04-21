@@ -4,18 +4,20 @@ import com.extraaedge.assignment.spacerocket.data.local.RocketDao
 import com.extraaedge.assignment.spacerocket.data.model.Rocket
 import com.extraaedge.assignment.spacerocket.data.remote.RocketApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class RocketRepository @Inject constructor(
     private val spaceXApi: RocketApi, private
     val rocketDao: RocketDao
 ) {
-    suspend fun listRockets(hardRefresh: Boolean): RocketResult<List<Rocket>> {
-        return withContext(Dispatchers.IO) {
+    suspend fun listRockets(hardRefresh: Boolean): Flow<RocketResult> {
+        return flow {
             val dbResults = rocketDao.getAllRockets()
             if (!hardRefresh) {
-                RocketResult.Success(dbResults)
+                emit(RocketResult.Success(dbResults))
             } else {
                 try {
                     val response = spaceXApi.listRockets()
@@ -24,18 +26,18 @@ class RocketRepository @Inject constructor(
                         data?.forEach { rocket ->
                             rocketDao.insert(rocket)
                         }
-                        RocketResult.Success(rocketDao.getAllRockets())
+                        emit(RocketResult.Success(rocketDao.getAllRockets()))
                     } else {
-                        handleError(response.message())
+                        emit(handleError(response.message()))
                     }
                 } catch (e: Exception) {
-                    handleError(e.message)
+                    emit(handleError(e.message))
                 }
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
-    private fun handleError(message: String?): RocketResult<List<Rocket>> {
+    private fun handleError(message: String?): RocketResult {
         val localRockets = rocketDao.getAllRockets();
         return if (localRockets.isEmpty()) RocketResult.Error(message) else RocketResult.Success(
             rocketDao.getAllRockets()
